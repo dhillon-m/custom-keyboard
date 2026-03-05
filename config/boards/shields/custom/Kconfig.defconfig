@@ -1,6 +1,6 @@
 if SHIELD_CUSTOM
 
     config ZMK_KEYBOARD_NAME
-    default "Dhillon Keyboard"
+    default "Dhillon KB"
 
 endif
