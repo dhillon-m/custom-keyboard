@@ -10,24 +10,46 @@
         default_layer {
 
             bindings = <
+                // ── Main keyboard (84 keys) ──────────────────────────────────────────────
                 &kp ESC         &kp F1          &kp F2          &kp F3              &kp F4          &kp F5          &kp F6          &kp F7          &kp F8          &kp F9          &kp F10         &kp F11         &kp F12         &kp DEL         &kp PSCRN
                 &kp GB_GRAVE    &kp GB_N1       &kp GB_N2       &kp GB_N3           &kp N4          &kp N5          &kp N6          &kp N7          &kp N8          &kp N9          &kp N0          &kp MINUS       &kp EQUAL       &kp BSPC        &kp HOME
                 &kp TAB         &kp Q           &kp W           &kp E               &kp R           &kp T           &kp Y           &kp U           &kp I           &kp O           &kp P           &kp LBKT        &kp RBKT                        &kp END
-                &kp CAPS        &kp A           &kp S           &kp D               &kp F           &kp G           &kp H           &kp J           &kp K           &kp L           &kp SEMI        &kp QUOT       &kp NUHS        &kp RET         &kp PG_UP
+                &kp CAPS        &kp A           &kp S           &kp D               &kp F           &kp G           &kp H           &kp J           &kp K           &kp L           &kp SEMI        &kp QUOT        &kp NUHS        &kp RET         &kp PG_UP
                 &kp LSHFT       &kp NUBS        &kp Z           &kp X               &kp C           &kp V           &kp B           &kp N           &kp M           &kp COMMA       &kp DOT         &kp GB_FSLH     &kp RSHFT       &kp UP          &kp PG_DN
-                &kp LCTRL       &kp LWIN        &kp LALT                                                            &kp SPACE                                       &kp LALT         &mo 1           &kp RCTRL       &kp LEFT        &kp DOWN        &kp RIGHT
+                &kp LCTRL       &kp LWIN        &kp LALT                                                            &kp SPACE                                       &kp LALT        &mo 1           &kp RCTRL       &kp LEFT        &kp DOWN        &kp RIGHT
+                // ── Macropad (19 keys, positions 84–102) ────────────────────────────────
+                // R0:  [macro1]  [macro2]
+                &none           &none
+                // R1:  [NL]  [/]  [*]  [-]
+                &kp KP_NUM      &kp KP_SLASH    &kp KP_ASTERISK &kp KP_MINUS
+                // R2:  [7]  [8]  [9]
+                &kp KP_N7       &kp KP_N8       &kp KP_N9
+                // R3:  [4]  [5]  [6]  [+]
+                &kp KP_N4       &kp KP_N5       &kp KP_N6       &kp KP_PLUS
+                // R4:  [1]  [2]  [3]
+                &kp KP_N1       &kp KP_N2       &kp KP_N3
+                // R5:  [0]  [.]  [ENT]
+                &kp KP_N0       &kp KP_DOT      &kp KP_ENTER
             >;
         };
 
         bt_layer {
-            
+
             bindings = <
+                // ── Main keyboard (84 keys) ──────────────────────────────────────────────
                 &none   &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_CLR      &bootloader     &none   &none   &none   &none   &none   &none   &none   &none
                 &none   &none           &none           &none           &none           &none           &none           &none   &none   &none   &none   &none   &none   &none   &none
                 &none   &none           &none           &none           &none           &none           &none           &none   &none   &none   &none   &none   &none           &none
                 &none   &none           &none           &none           &none           &none           &none           &none   &none   &none   &none   &none   &none   &none   &none
                 &none   &none           &none           &none           &none           &none           &none           &none   &none   &none   &none   &none   &none   &none   &none
                 &none   &none           &none                                                           &none                           &none   &none   &none   &none   &none   &none
+                // ── Macropad (19 keys, positions 84–102) ────────────────────────────────
+                &none   &none
+                &none   &none   &none   &none
+                &none   &none   &none
+                &none   &none   &none   &none
+                &none   &none   &none
+                &none   &none   &none
             >;
         };
     };
