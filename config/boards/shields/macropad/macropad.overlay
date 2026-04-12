@@ -1,13 +1,5 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
-// ─── Pin interpretations ──────────────────────────────────────────────────────
-// R0=P0.09  R1=P0.10  R2=P1.11  R3=P1.13  R4=P1.15  R5=P0.02
-// C0=P0.24  C1=P1.01  C2=P0.11  C3=P1.04
-// SDA=P0.17  SCL=P0.20
-//
-// If C1 is not P1.01, update <&gpio1 1 ...> below to the correct port/pin.
-// ─────────────────────────────────────────────────────────────────────────────
-
 / {
     chosen {
         zmk,kscan = &macropad_kscan;
@@ -31,27 +23,12 @@
 
         col-gpios
             = <&gpio0 24 GPIO_ACTIVE_HIGH>   // C0
-            , <&gpio1  1 GPIO_ACTIVE_HIGH>   // C1
+            , <&gpio1  0 GPIO_ACTIVE_HIGH>   // C1
             , <&gpio0 11 GPIO_ACTIVE_HIGH>   // C2
             , <&gpio1  4 GPIO_ACTIVE_HIGH>   // C3
             ;
     };
 
-    // Physical layout (x = unpopulated cell):
-    //   [x]  [x]  [M1]  [M2]       R0
-    //   [NL] [/]  [*]   [-]        R1
-    //   [7]  [8]  [9]   [x]        R2
-    //   [4]  [5]  [6]   [+]        R3
-    //   [1]  [2]  [3]   [x]        R4
-    //   [x]  [0]  [.]   [ENT]      R5
-    //
-    // Key positions emitted (in order, becoming positions 84–102 in the combined keymap):
-    //   84=M1  85=M2
-    //   86=NL  87=/  88=*  89=-
-    //   90=7   91=8  92=9
-    //   93=4   94=5  95=6  96=+
-    //   97=1   98=2  99=3
-    //  100=0  101=. 102=ENT
     macropad_transform: matrix_transform {
         compatible = "zmk,matrix-transform";
         rows = <6>;
@@ -69,9 +46,6 @@
 };
 
 // ─── SSD1306 OLED (128×64) via I2C0 on P0.17/P0.20 ──────────────────────────
-// Zephyr 3.5 uses pinctrl for nRF I2C — sda-pin/scl-pin are gone.
-// The nice_nano_v2 board DTS already configures i2c0 pinctrl with P0.17/P0.20
-// as its defaults, so the shield only needs to enable the bus.
 &i2c0 {
     status = "okay";
 
