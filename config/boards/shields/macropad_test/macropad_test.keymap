@@ -1,0 +1,29 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+// Each key sends a distinct letter so you can verify every position works.
+// Layout (left-to-right, top-to-bottom matches physical layout):
+//
+//   [A] [B]
+//   [C] [D] [E] [F]
+//   [G] [H] [I]
+//   [J] [K] [L] [M]
+//   [N] [O] [P]
+//       [Q] [R] [S]
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                &kp A   &kp B
+                &kp C   &kp D   &kp E   &kp F
+                &kp G   &kp H   &kp I
+                &kp J   &kp K   &kp L   &kp M
+                &kp N   &kp O   &kp P
+                        &kp Q   &kp R   &kp S
+            >;
+        };
+    };
+};

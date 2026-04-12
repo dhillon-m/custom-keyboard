@@ -1,0 +1,6 @@
+if SHIELD_MACROPAD_TEST
+
+config ZMK_KEYBOARD_NAME
+    default "Macropad Test"
+
+endif
