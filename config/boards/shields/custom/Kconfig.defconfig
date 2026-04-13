@@ -1,6 +1,0 @@
-if SHIELD_CUSTOM
-
-    config ZMK_KEYBOARD_NAME
-    default "Dhillon KB"
-
-endif

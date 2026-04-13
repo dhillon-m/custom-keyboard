@@ -1,7 +1,7 @@
-if SHIELD_MACROPAD
+if SHIELD_BHOO_20
 
 config ZMK_KEYBOARD_NAME
-    default "Macropad"
+    default "BHOO-20"
 
 config ZMK_SPLIT
     default y

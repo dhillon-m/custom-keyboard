@@ -1,0 +1,6 @@
+if SHIELD_BHOO_75
+
+config ZMK_KEYBOARD_NAME
+    default "BHOO-75"
+
+endif
