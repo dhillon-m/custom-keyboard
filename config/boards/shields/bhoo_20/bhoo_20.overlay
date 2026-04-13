@@ -1,9 +1,25 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
+&i2c0 {
+    status = "okay";
+
+    ssd1306: ssd1306@3c {
+        compatible = "solomon,ssd1306fb";
+        reg = <0x3c>;
+        width = <128>;
+        height = <64>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        prechargep = <0x22>;
+    };
+};
+
 / {
     chosen {
         zmk,kscan = &bhoo_20_kscan;
         zmk,matrix-transform = &bhoo_20_transform;
+        zephyr,display = &ssd1306;
     };
 
     bhoo_20_kscan: kscan {
