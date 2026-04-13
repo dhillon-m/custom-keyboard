@@ -8,6 +8,7 @@
         reg = <0x3c>;
         width = <128>;
         height = <64>;
+        segment-offset = <0>;
         segment-remap;
         com-invdir;
         com-sequential;
