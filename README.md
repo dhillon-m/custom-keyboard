@@ -1,16 +1,18 @@
-# BHOO Keyboard Firmware
+# BHOO Keyboard
 
 [![Build ZMK firmware](https://github.com/dhillon-m/custom-keyboard/actions/workflows/build.yml/badge.svg)](https://github.com/dhillon-m/custom-keyboard/actions/workflows/build.yml)
 ![ZMK](https://img.shields.io/badge/ZMK-v0.2-blue)
 ![MCU](https://img.shields.io/badge/MCU-nice!nano%20v2-purple)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-[ZMK](https://zmk.dev) firmware for a handwired wireless setup with two parts:
+<img src="docs/images/bhoo_75.jpg" alt="The finished BHOO-75 keyboard" width="100%">
+
+A custom wireless keyboard setup with two parts. This repo has the [ZMK](https://zmk.dev) firmware, the KiCad PCB and the case CAD.
 
 | Device      | Role             | Description                                                     |
 | ----------- | ---------------- | --------------------------------------------------------------- |
-| **BHOO-75** | Split central    | 75% ISO (UK) keyboard with an F-row and arrow cluster. 84 keys. |
-| **BHOO-20** | Split peripheral | Numpad with a 128×64 SSD1306 OLED (WIP). 19 keys.               |
+| **BHOO-75** | Split central    | Custom PCB, 75% ISO (UK) with an F-row and arrow cluster. 84 keys. |
+| **BHOO-20** | Split peripheral | Handwired numpad with a 128×64 SSD1306 OLED (WIP). 19 keys.      |
 
 Both run on a **nice!nano v2** (nRF52840). The BHOO-75 pairs with the host over Bluetooth or USB. The BHOO-20 connects to the BHOO-75 as a ZMK split peripheral, so both boards share **one keymap** and appear to the computer as a single keyboard.
 
@@ -20,6 +22,7 @@ Both run on a **nice!nano v2** (nRF52840). The BHOO-75 pairs with the host over 
 - **UK layout** via [`zmk-locales`](https://github.com/joelspadin/zmk-locales) (`keys_en_gb.h`).
 - **OLED battery screen (WIP)** on the BHOO-20. See [below](#oled-display-work-in-progress).
 - **Bluetooth layer** for switching between 4 profiles, clearing a pairing, and entering the bootloader.
+- **Custom PCB and case.** The KiCad project and STEP/STL files are in [`hardware/`](hardware). See [Hardware](#hardware).
 - **CI builds** on every push through GitHub Actions. A `settings_reset` image is built too.
 
 ## OLED display (work in progress)
@@ -99,7 +102,11 @@ The two `—` keys at the top are unassigned (`&none`).
 │           ├── bhoo_20.conf         # Display, battery, LVGL canvas
 │           ├── battery_screen.c     # Custom status screen (WIP)
 │           └── CMakeLists.txt
-├── docs/images/                     # OLED design mock-ups
+├── hardware/
+│   ├── bhoo_75/pcb/                 # KiCad 8 PCB project
+│   ├── bhoo_75/case/                # Top case, bottom case, plate (STEP)
+│   └── bhoo_20/case/                # Numpad case parts (STL)
+├── docs/images/                     # Photos, renders, OLED mock-ups
 └── zephyr/module.yml
 ```
 
@@ -134,7 +141,48 @@ west build -s zmk/app -d build/bhoo_20 -b nice_nano_v2 -- \
 
 **Pairing problems?** Flash `settings_reset` to **both** boards, then reflash the normal firmware. This clears stale split and Bluetooth bonds. Afterwards, remove the keyboard from your computer's Bluetooth list and pair it again.
 
-## Hardware notes
+## Hardware
+
+### BHOO-75: custom PCB
+
+<img src="docs/images/cross_section.jpg" alt="Cross-section render of the BHOO-75 case, plate and PCB" width="100%">
+
+The BHOO-75 uses a two-layer PCB designed in KiCad 8. It's about 336 mm wide, with:
+
+- solder-in MX switch footprints
+- one SOD-123 diode per key
+- a nice!nano v2 and a LiPo battery on the underside
+
+| Layout in KiCad | Bare board |
+| --- | --- |
+| <img src="docs/images/pcb_layout.jpg" alt="KiCad PCB layout"> | <img src="docs/images/pcb_bare.jpg" alt="Bare BHOO-75 PCB"> |
+| **Populated (underside)** | **Diodes up close** |
+| <img src="docs/images/pcb_populated.jpg" alt="Populated PCB with nice!nano and battery"> | <img src="docs/images/pcb_soldering.jpg" alt="Close-up of soldered SOD-123 diodes"> |
+
+| File | Description |
+| --- | --- |
+| [`hardware/bhoo_75/pcb/`](hardware/bhoo_75/pcb) | KiCad 8 project: schematic (`PCB.kicad_sch`) and board (`PCB.kicad_pcb`) |
+| [`hardware/bhoo_75/case/Top Case.step`](hardware/bhoo_75/case) | Top case |
+| [`hardware/bhoo_75/case/Bottom Case.step`](hardware/bhoo_75/case) | Bottom case |
+| [`hardware/bhoo_75/case/Plate.step`](hardware/bhoo_75/case) | Switch plate |
+
+**Opening the PCB in KiCad:** footprints are stored inside the board file, so the PCB opens without any extra libraries. To edit the schematic symbols or see the 3D view, you also need:
+
+- [ScottoKicad](https://github.com/joe-scotto/scottokeebs): symbols, the nice!nano and diode footprints, and 3D models. Set the `SCOTTOKEEBS_KICAD` path variable to wherever you put it.
+- [ai03 MX_V2](https://github.com/ai03-2725/MX_V2): the `MX_Solderable` switch footprints.
+
+The switch 3D models point to a file on the original author's PC, so they won't show in the 3D viewer.
+
+### BHOO-20: handwired numpad
+
+The BHOO-20 is handwired: switches are wired directly into a 6 × 4 matrix with diodes, no PCB. Printable case parts are in [`hardware/bhoo_20/case/`](hardware/bhoo_20/case):
+
+- `Top Case.stl`
+- `Bottom Case.stl`
+- `Plate.stl`
+- `Foot.stl`
+
+### Wiring
 
 | Board   | Matrix | Diodes  | Rows (GPIO)                         | Columns (GPIO)                                                                    |
 | ------- | ------ | ------- | ----------------------------------- | --------------------------------------------------------------------------------- |
@@ -150,13 +198,14 @@ The BHOO-75 matrix transform declares 19 columns. Columns 15–18 are virtual pa
 - [ ] Get the BHOO-20 OLED working
 - [ ] Send the BHOO-75 battery level to the BHOO-20 display
 - [ ] More layers (media, navigation)
-- [ ] Photos of the build
 
 ## Acknowledgements
 
 - [ZMK Firmware](https://zmk.dev)
 - [zmk-locales](https://github.com/joelspadin/zmk-locales) by Joel Spadin
 - [nice!nano](https://nicekeyboards.com/nice-nano/)
+- [ScottoKicad](https://github.com/joe-scotto/scottokeebs) by Joe Scotto
+- [MX_V2](https://github.com/ai03-2725/MX_V2) by ai03
 
 ## License
 

@@ -5,3 +5,10 @@
 # Local ZMK / west builds
 build/
 *.uf2
+
+# KiCad local files
+*-backups/
+fp-info-cache
+*.kicad_prl
+*.lck
+\#auto_saved_files\#
