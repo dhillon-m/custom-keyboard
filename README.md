@@ -104,7 +104,7 @@ The two `—` keys at the top are unassigned (`&none`).
 │           └── CMakeLists.txt
 ├── hardware/
 │   ├── bhoo_75/pcb/                 # KiCad 8 PCB project
-│   ├── bhoo_75/case/                # Top case, bottom case, plate (STEP)
+│   ├── bhoo_75/case/                # Top case, bottom case, plate, foot (STEP)
 │   └── bhoo_20/case/                # Numpad case parts (STL)
 ├── docs/images/                     # Photos, renders, OLED mock-ups
 └── zephyr/module.yml
@@ -165,6 +165,7 @@ The BHOO-75 uses a two-layer PCB designed in KiCad 8. It's about 336 mm wide, wi
 | [`hardware/bhoo_75/case/Top Case.step`](hardware/bhoo_75/case) | Top case |
 | [`hardware/bhoo_75/case/Bottom Case.step`](hardware/bhoo_75/case) | Bottom case |
 | [`hardware/bhoo_75/case/Plate.step`](hardware/bhoo_75/case) | Switch plate |
+| [`hardware/bhoo_75/case/Foot.step`](hardware/bhoo_75/case) | Foot |
 
 **Opening the PCB in KiCad:** footprints are stored inside the board file, so the PCB opens without any extra libraries. To edit the schematic symbols or see the 3D view, you also need:
 
