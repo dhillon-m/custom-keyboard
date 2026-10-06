@@ -1,0 +1,7 @@
+# Editor / tooling
+.vscode/
+.claude/
+
+# Local ZMK / west builds
+build/
+*.uf2
