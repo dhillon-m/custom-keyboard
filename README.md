@@ -210,4 +210,4 @@ The BHOO-75 matrix transform declares 19 columns. Columns 15–18 are virtual pa
 
 ## License
 
-[MIT](LICENSE)
+Everything in this repository, including the firmware, the PCB and the case CAD, is released under the [MIT License](LICENSE).
